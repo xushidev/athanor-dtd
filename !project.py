@@ -33,14 +33,19 @@ athanor_dtd = load_json(ch.get_cvar("athanor_dtd", default))
 # {
 #   "project_name": "Project name",
 #   "skill": "skill",
-#   "dc": "300"
+#   "dc": "300",
 #   "args": {
 #           "b": "1",
 #           "adv": "True"
-#       }
-#   "description": "given description of the project"
+#       },
+#   "progress": "0",
+#   "description": "any given description of the project",
+#   "type": "DC/Clock"
 # }
 #
+
+# DC: DC uses the normal cumulative DC like with spell research (can be like 300 dc and cumulatively add skill checks)
+# Clock: has 5 types of difficulties (d4, d6, d8, d10, d12), given a DC there can be +1 or +2 to the clock
 
 ###################
 # Arguments check #

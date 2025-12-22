@@ -9,14 +9,14 @@ for (skill_name, skill) in ch.skills:
     SKILL_LIST.append(skill_name)
 
 GOLD_INDEX = [
-    {'pp': '0',    'gp': '0',    'sp': '2d4', 'cp': '3d6'},
-    {'pp': '0',    'gp': '0',    'sp': '3d4', 'cp': '4d6'},
-    {'pp': '0',    'gp': '1d4',  'sp': '1d4', 'cp': '5d6'},
-    {'pp': '0',    'gp': '2d4',  'sp': '2d6', 'cp': '1d6'},
-    {'pp': '0',    'gp': '3d4',  'sp': '3d6', 'cp': '2d6'},
-    {'pp': '1d4',  'gp': '1d4',  'sp': '4d6', 'cp': '3d6'},
-    {'pp': '2d4',  'gp': '2d4',  'sp': '5d6', 'cp': '4d6'},
-    {'pp': '3d4',  'gp': '3d6',  'sp': '1d6', 'cp': '5d6'}
+    {'pp': '0',   'gp': '1d2',  'sp': '1d4', 'cp': '1d8'},
+    {'pp': '0',   'gp': '1d4',  'sp': '1d4', 'cp': '1d8'},
+    {'pp': '0',   'gp': '1d6',  'sp': '1d4', 'cp': '2d4'},
+    {'pp': '0',   'gp': '2d4',  'sp': '1d6', 'cp': '2d6'},
+    {'pp': '0',   'gp': '2d6',  'sp': '1d2',   'cp': '1d4'},
+    {'pp': '0',   'gp': '3d6',  'sp': '1d4',   'cp': '1d6'},
+    {'pp': '0',   'gp': '4d6',  'sp': '2d4',   'cp': '2d6'},
+    {'pp': '1d2', 'gp': '3d6',  'sp': '1d8',   'cp': '1d12'}
 ]
 
 DC_INDEX = [
@@ -274,6 +274,13 @@ else:
 ###############################
 # Finally modifying coinpurse #
 ###############################
+
+# if either rolls are lower than 0, then round them up to 0
+if r1_gold < 0:
+    r1_gold = 0
+
+if r2_gold < 0:
+    r2_gold = 0
 
 # Summing up total gold earned
 total_gold = r1_gold + r2_gold
