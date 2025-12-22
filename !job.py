@@ -119,7 +119,7 @@ EXHAUSTION_PROMPTS = [
 # Loading cvars #
 #################
 
-default = dump_yaml(
+default = dump_json(
     {
         "last_dtd": "",
         "exhaustion_streak": 0,
@@ -127,7 +127,7 @@ default = dump_yaml(
         "default_skill2": ""
     }
 )
-athanor_dtd = load_yaml(ch.get_cvar("athanor_dtd", default))
+athanor_dtd = load_json(ch.get_cvar("athanor_dtd", default))
 
 ################
 # Time checker #
@@ -193,7 +193,7 @@ if skill2 not in VALID_SKILLS2:
 athanor_dtd["default_skill1"] = skill1
 athanor_dtd["default_skill2"] = skill2
 
-ch.set_cvar("athanor_dtd", dump_yaml(athanor_dtd))
+ch.set_cvar("athanor_dtd", dump_json(athanor_dtd))
 
 ######################
 # Arguments for roll #
