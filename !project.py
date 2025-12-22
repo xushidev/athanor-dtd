@@ -28,6 +28,20 @@ default = dump_json(
 )
 athanor_dtd = load_json(ch.get_cvar("athanor_dtd", default))
 
+#
+# each project in projects_list:
+# {
+#   "project_name": "Project name",
+#   "skill": "skill",
+#   "dc": "300"
+#   "args": {
+#           "b": "1",
+#           "adv": "True"
+#       }
+#   "description": "given description of the project"
+# }
+#
+
 ###################
 # Arguments check #
 ###################
