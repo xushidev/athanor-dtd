@@ -312,20 +312,19 @@ else:
 return f'''embed
             -title "Job downtime"
             -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-            **Character**: {name} (Level {level} | Tier {TIER})
+**Character**: {name} (Level {level} | Tier {TIER})
 
-            **{skill1.capitalize()}:** {SkillRoll1}
-            **{skill2}:** {SkillRoll2}
+**{skill1.capitalize()}:** {SkillRoll1}
+**{skill2}:** {SkillRoll2}
 
-            __**Results:**__
-            **Coinpurse Changes:**
-            {COINPURSE_BEFORE} -> {COINPURSE_AFTER} (+{total_gold:.2f}gp)
-            **Exhaustion Streak:**
-            {before_exhaustion_streak} -> {exhaustion_streak}
-            {exh_msg}
-            **Roleplay:**
-            {rp_msg}
-            """
+__**Results:**__
+**Coinpurse Changes:**
+{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (+{total_gold:.2f}gp)
+**Exhaustion Streak:**
+{before_exhaustion_streak} -> {exhaustion_streak}
+{exh_msg}
+**Optional Roleplay Prompt:**
+{rp_msg}"""
             -thumb "{ch.image}"
             -footer "Athanor"
         '''
