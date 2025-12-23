@@ -31,7 +31,7 @@ The `!job.py` file contains the script in draconic for the `!MONEY` command, it 
 - [ ] Project name + DC input implementation   
 - [ ] Skill input   
 - [ ] Skill rolls   
-- [ ] Exhaustion streak system   
+- [x] Exhaustion streak system   
 
 #### Miscellaneous DTD:
 - [ ] Input (reason for searching, what is doing, etc...)  
