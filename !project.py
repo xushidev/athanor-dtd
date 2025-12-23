@@ -62,19 +62,25 @@ no_args1 = '&' + '1' + '&'
 no_args2 = '&' + '2' + '&'
 
 # loading all the arguments needed
-project_dc = a.last("dc")
+project_dc = a.last("dc", "")
 project_type = a.last("type", "")
 project_desc = a.last("desc", "")
-project_cost = a.last("cost", 0)
+project_cost = a.last("cost", 0.0)
 project_bonus = a.last("b", 0)
 project_adv = a.adv(boolwise=True)
 
 if args1 == no_args1:
     return 'echo Error: No project name given'
 
+# we assume progress is 0 to begin with
+project_progress = 0
+
+# variable to note if the project is new or not
+new_project = True
+
 # if user doesn't give a 2nd argument, it means that he wants it automated
+index = -1
 if args2 == no_args2:
-    index = -1
     
     for list_index, project in enumerate(projects_list):
         args1, project = args1.lower(), project['project_name'].lower()
@@ -87,20 +93,27 @@ if args2 == no_args2:
     
     args2 = projects_list[index]['skill']
     project_dc = projects_list[index]['dc']
+    project_adv = projects_list[index]['args']['adv']
+    project_bonus = projects_list[index]['args']['b']
+    project_desc = projects_list[index]['description']
     project_type = projects_list[index]['type']
-    
+    project_cost = projects_list[index]['cost']
+    project_progress = projects_list[index]['progress']
+    new_project = False
 else:
     # else it means that this is a new project
-
+    if project_dc == "":
+        return "echo Project's DC isn't given"
+    
+    # we assume if no project type, then it is a one time project
+    if project_type == "":
+        project_type = "1"
 
 # Pseudo fuzzy search the skill
 skill = ([x for x,y in ch.skills if args2.lower().replace(' ','') in x.lower()]+['default'])[0]
-
 if skill == 'default':
     return "echo Skill given isn't a valid skill!"
 
-if project_dc == "":
-    return "echo Project's DC isn't given"
 
 
 ################
@@ -121,6 +134,42 @@ if last_dtd != "":
         athanor_dtd["exhaustion_streak"] += 1
 
 exhaustion_streak = athanor_dtd["exhaustion_streak"]
+
+####################
+# loading the cvar #
+####################
+
+
+# assuming everything goes alright, we append the new project into the cvar
+if new_project:
+    athanor_dtd['projects_list'].append({
+        "project_name": args1,
+        "skill": skill,
+        "dc": project_dc,
+        "args": {
+            "b": project_bonus,
+            "adv": project_adv
+        },
+        "progress": project_progress,
+        "description": project_desc,
+        "type": project_type,
+        "cost": project_cost
+    })
+else:
+    # if the project exists, then we override it
+    athanor_dtd['projects_list'][index] = {
+        "project_name": args1,
+        "skill": skill,
+        "dc": project_dc,
+        "args": {
+            "b": project_bonus,
+            "adv": project_adv
+        },
+        "progress": project_progress,
+        "description": project_desc,
+        "type": project_type,
+        "cost": project_cost
+    }
 
 
 ch.set_cvar("athanor_dtd", dump_json(athanor_dtd))
