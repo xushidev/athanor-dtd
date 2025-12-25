@@ -126,33 +126,33 @@ xp_roll3 = 0
 
 if atk_roll1.total < DC_INDEX[0]:
     # fail
-    xp_roll1 = roll(f"{level}d4") - roll(f"{level}d4")
+    xp_roll1 = roll(f"{level}d4")
 elif atk_roll1.total < DC_INDEX[1]:
     # success
-    xp_roll1 = roll(f"{level}d4")
+    xp_roll1 = roll(f"{level}d6")
 else:
     # critical success
-    xp_roll1 = roll(f"{level}d4") + roll(f"{level}d4")
+    xp_roll1 = roll(f"{level}d8")
 
 if atk_roll2.total < DC_INDEX[0]:
     # fail
-    xp_roll2 = roll(f"{level}d4") - roll(f"{level}d4")
+    xp_roll2 = roll(f"{level}d4")
 elif atk_roll2.total < DC_INDEX[1]:
     # success
-    xp_roll2 = roll(f"{level}d4")
+    xp_roll2 = roll(f"{level}d6")
 else:
     # critical success
-    xp_roll2 = roll(f"{level}d4") + roll(f"{level}d4")
+    xp_roll2 = roll(f"{level}d8")
 
 if dex_save.total < DC_INDEX[0]:
     # fail
-    xp_roll3 = roll(f"{level}d4") - roll(f"{level}d4")
+    xp_roll3 = roll(f"{level}d4")
 elif dex_save.total < DC_INDEX[1]:
     # success
-    xp_roll3 = roll(f"{level}d4")
+    xp_roll3 = roll(f"{level}d6")
 else:
     # critical success
-    xp_roll3 = roll(f"{level}d4") + roll(f"{level}d4")
+    xp_roll3 = roll(f"{level}d8")
 
 # tier as modifier
 total = (xp_roll1 + xp_roll2 + xp_roll3) * TIER
