@@ -175,7 +175,7 @@ return f'''embed
 
 __**Results:**__
 **XP gained**:
-{total} | run `!xp +{total} "Combat Training"` in <#1043462883062861864>
+{total}XP | run `!xp +{total} 'Combat Training'` in <#1043462883062861864>
 **Exhaustion Streak:**
 {before_exhaustion_streak} -> {exhaustion_streak}
 {exh_msg}"""
