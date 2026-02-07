@@ -150,7 +150,7 @@ def contract_dtd():
     if last_dtd != "":
         if (last_dtd // DAY) == (TIME // DAY):
             return 'echo You are doing 2 dtds in the same day, please try tomorrow'
-        if ((last_dtd // DAY) - (TIME // DAY)) >= 2:
+        if ((TIME // DAY) - (last_dtd // DAY)) >= 2:
             athanor_dtd["exhaustion_streak"] = 0
         else:
             athanor_dtd["exhaustion_streak"] += 1
@@ -371,7 +371,7 @@ def train_dtd():
     if last_dtd != "":
         if (last_dtd // DAY) == (TIME // DAY):
             return 'echo You are doing 2 dtds in the same day, please try tomorrow'
-        if ((last_dtd // DAY) - (TIME // DAY)) >= 2:
+        if ((TIME // DAY) - (last_dtd // DAY)) >= 2:
             athanor_dtd["exhaustion_streak"] = 0
         else:
             athanor_dtd["exhaustion_streak"] += 1
