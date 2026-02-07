@@ -330,19 +330,19 @@ def contract_dtd():
     return f'''embed
                 -title "Job downtime"
                 -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-    **Character**: {name} (Level {level} | Tier {TIER})
+**Character**: {name} (Level {level} | Tier {TIER})
 
-    **{skill1.capitalize()}:** {SkillRoll1}
-    **{skill2}:** {SkillRoll2}
+**{skill1.capitalize()}:** {SkillRoll1}
+**{skill2}:** {SkillRoll2}
 
-    __**Results:**__
-    **Coinpurse Changes:**
-    {COINPURSE_BEFORE} -> {COINPURSE_AFTER} (+{total_gold:.2f}gp)
-    **Exhaustion Streak:**
-    {before_exhaustion_streak} -> {exhaustion_streak}
-    {exh_msg}
-    **Optional Roleplay Prompt:**
-    {rp_msg}"""
+__**Results:**__
+**Coinpurse Changes:**
+{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (+{total_gold:.2f}gp)
+**Exhaustion Streak:**
+{before_exhaustion_streak} -> {exhaustion_streak}
+{exh_msg}
+**Optional Roleplay Prompt:**
+{rp_msg}"""
                 -thumb "{ch.image}"
                 -footer "!dtd job [skill1] [skill2] | Athanor | !dtd help"
             '''
@@ -473,18 +473,18 @@ def train_dtd():
     return f'''embed
                 -title "Job downtime"
                 -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-    **Character**: {name} (Level {level} | Tier {TIER})
+**Character**: {name} (Level {level} | Tier {TIER})
 
-    **First Attack Roll:** {atk_roll1}
-    **Second Attack Roll:** {atk_roll2}
-    **Dexterity Save**: {dex_save}
+**First Attack Roll:** {atk_roll1}
+**Second Attack Roll:** {atk_roll2}
+**Dexterity Save**: {dex_save}
 
-    __**Results:**__
-    **XP gained**:
-    {total}XP | run `!xp +{total} 'Combat Training'` in <#1043462883062861864>
-    **Exhaustion Streak:**
-    {before_exhaustion_streak} -> {exhaustion_streak}
-    {exh_msg}"""
+__**Results:**__
+**XP gained**:
+{total}XP | run `!xp +{total} 'Combat Training'` in <#1043462883062861864>
+**Exhaustion Streak:**
+{before_exhaustion_streak} -> {exhaustion_streak}
+{exh_msg}"""
                 -thumb "{ch.image}"
                 -footer "!dtd train | Athanor | !dtd help"
             '''
@@ -500,18 +500,17 @@ else:
         -title "Athanor DownTime Days (DTD) Activities"
         -desc """The DownTime Days are whatever free time the adventurers of Athanor have.
     
-    This time can be used to perform a few activities, such as completing a random task for the city, or completing a small job for an employer or training in general.
+This time can be used to perform a few activities, such as completing a random task for the city, or completing a small job for an employer or training in general.
 
-    ===
-    :warning: This is a currently Work In Progress (WIP) alias, please report to staff if *any* error occurs
-    ===
-    **Commands**:
-    `!dtd job "[skill1]" "[skill2]"` - Random Job: Some people around the city might find themselves in need of a hand for a one-off job, this may include finding a lost object or commissioning. The pay is directly related to the rank of the adventurers.
-    `!dtd train` - Training: As all adventurers, training is an important part of the job, hence why gathering experience from such training is important. It may simply be a training related to evading attacks to a spar.
+===
+:warning: This is a currently Work In Progress (WIP) alias, please report to staff if *any* error occurs
+===
+**Commands**:
+`!dtd job "[skill1]" "[skill2]"` - Random Job: Some people around the city might find themselves in need of a hand for a one-off job, this may include finding a lost object or commissioning. The pay is directly related to the rank of the adventurers.
+`!dtd train` - Training: As all adventurers, training is an important part of the job, hence why gathering experience from such training is important. It may simply be a training related to evading attacks to a spar.
 
-    `skill1`: acrobatics, athletics, stealth.
-    `skill2`: animal handling, deception, intimidation, investigation, nature, perception.
-    """
+`skill1`: acrobatics, athletics, stealth.
+`skill2`: animal handling, deception, intimidation, investigation, nature, perception."""
         -footer "!dtd help | Athanor"
     '''
 </drac2>
