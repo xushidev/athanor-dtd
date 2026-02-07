@@ -15,7 +15,7 @@ The `!job.py` file contains the script in draconic for the `!MONEY` command, it 
 - [x] Money DTD 
 - [ ] Projects DTD   
 - [ ] Miscellaneous DTD   
-- [ ] XP DTD   
+- [x] XP DTD   
 - [x] Implementing time based limit (using `time()` functions)   
 - [x] Implementing exhaustion system   
 
@@ -40,8 +40,8 @@ The `!job.py` file contains the script in draconic for the `!MONEY` command, it 
 - [ ] Exhaustion streak system   
 
 #### XP DTD:
-- [ ] Defining what skills / atk rolls etc... to use   
-- [ ] Skill rolls  
-- [ ] XP rolls per tier  
-- [ ] XP log add  
-- [ ] Exhaustion streak system  
+- [x] Defining what skills / atk rolls etc... to use   
+- [x] Skill rolls  
+- [x] XP rolls per tier  
+- [x] XP log add  
+- [x] Exhaustion streak system  
