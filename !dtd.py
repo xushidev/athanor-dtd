@@ -9,6 +9,7 @@ TIER = int(level//4.01+1)
 
 MINUTE = 60
 HOUR = 60 * MINUTE
+DAY = 24 * HOUR
 OFFSET = 9 * HOUR
 
 TIME = floor(time() + OFFSET)
@@ -150,9 +151,9 @@ def contract_dtd():
     athanor_dtd["last_dtd"] = TIME
 
     if last_dtd != "":
-        if (last_dtd // 86400) == (TIME // 86400):
+        if (last_dtd // DAY) == (TIME // DAY):
             return 'echo You are doing 2 dtds in the same day, please try tomorrow'
-        if ((last_dtd // 86400) - (TIME // 86400)) >= 2:
+        if ((last_dtd // DAY) - (TIME // DAY)) >= 2:
             athanor_dtd["exhaustion_streak"] = 0
         else:
             athanor_dtd["exhaustion_streak"] += 1
@@ -371,9 +372,9 @@ def train_dtd():
     athanor_dtd["last_dtd"] = TIME
 
     if last_dtd != "":
-        if (last_dtd // 86400) == (TIME // 86400):
+        if (last_dtd // DAY) == (TIME // DAY):
             return 'echo You are doing 2 dtds in the same day, please try tomorrow'
-        if ((last_dtd // 86400) - (TIME // 86400)) >= 2:
+        if ((last_dtd // DAY) - (TIME // DAY)) >= 2:
             athanor_dtd["exhaustion_streak"] = 0
         else:
             athanor_dtd["exhaustion_streak"] += 1
