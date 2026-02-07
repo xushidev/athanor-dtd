@@ -3,6 +3,8 @@
 # CONSTANTS definitions #
 #########################
 
+using(LIB="505f607f-d8cc-44bb-8a67-df5b871c95dd")
+
 ch = character()
 
 TIER = int(level//4.01+1)
@@ -13,11 +15,6 @@ DAY = 24 * HOUR
 OFFSET = 9 * HOUR
 
 TIME = floor(time() + OFFSET)
-
-a = argparse(&ARGS&)
-
-# Get possible advantage from the arguments
-adv = a.adv(boolwise=True)
 
 DC_INDEX = [
     8+(level//2)+proficiencyBonus,
@@ -167,7 +164,7 @@ def contract_dtd():
     def_skill1 = athanor_dtd["default_skill1"]
     def_skill2 = athanor_dtd["default_skill2"]
 
-    a = argparse(&ARGS&)
+    a = LIB.numargparse(&ARGS&)
     args1 = '&2&'.lower()
     args2 = '&3&'.lower()
     no_args1 = '&' + '2' + '&'
@@ -211,7 +208,10 @@ def contract_dtd():
     ######################
 
     # Get possible advantage from the arguments
-    adv = a.adv(boolwise=True)
+    a.set_context(1)
+    adv1 = a.adv(eadv=True)
+    a.set_context(2)
+    adv2 = a.adv(eadv=True)
 
     # Get possible rerolls from arguments (halflings)
     reroll_number = ch.csettings.get("reroll", None)
@@ -226,23 +226,20 @@ def contract_dtd():
 
     exh_msg = ""
 
-    if exhaustion_streak > 4:
+    if exhaustion_streak > 4 and adv1 > 1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
-        match adv:
-            case None:
-                adv = False
-            case True:
-                adv = None
-            case _:
-                # do nothing (can't eadv or go below dis)
-                adv = adv
+        adv1 -= 1
+    
+    if exhaustion_streak > 4 and adv2 > 1:
+        exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
+        adv2 -= 1
 
     #####################
     # Final Skill Rolls #
     #####################
 
-    SkillRoll1 = vroll(ch.skills[skill1].d20(adv, reroll_number, minimum_check1))
-    SkillRoll2 = vroll(ch.skills[skill2].d20(adv, reroll_number, minimum_check2))
+    SkillRoll1 = vroll(ch.skills[skill1].d20(adv1, reroll_number, minimum_check1))
+    SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2))
 
     # Fixes animal handling for display
     if skill2 == "animalHandling":
@@ -381,23 +378,37 @@ def train_dtd():
 
     exhaustion_streak = athanor_dtd["exhaustion_streak"]
 
+    ch.set_cvar("athanor_dtd", dump_json(athanor_dtd))
+
+    ###################
+    # Arguments stuff #
+    ###################
+    a = LIB.numargparse(&ARGS&)
+
+    # Get possible advantage from the arguments
+    a.set_context(1)
+    adv1 = a.adv(eadv=True)
+    a.set_context(2)
+    adv2 = a.adv(eadv=True)
+    a.set_context(3)
+    adv3 = a.adv(eadv=True)
     ########################
     # Exhaustion penalties #
     ########################
 
     exh_msg = ""
 
-    if exhaustion_streak > 4:
+    if exhaustion_streak > 4 and adv1 > 1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
-        match adv:
-            case None:
-                adv = False
-            case True:
-                adv = None
-            case _:
-                # do nothing (can't eadv or go below dis)
-                adv = adv
+        adv1 -= 1
+    
+    if exhaustion_streak > 4 and adv2 > 1:
+        exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
+        adv2 -= 1
 
+    if exhaustion_streak > 4 and adv3 > 1:
+        exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
+        adv3 -= 1
     #########################
     # Combat Training rolls #
     #########################
@@ -407,20 +418,21 @@ def train_dtd():
     # getting the highest modifier between: strength, dexterity, intelligence, wisdom and charisma
     atk_mod = max(strengthMod, dexterityMod, intelligenceMod, wisdomMod, charismaMod) + proficiencyBonus
 
-    dice = "1d20"
-    if adv:
-        dice = "2d20kh1"
-    elif adv == False:
-        dice = "2d20kl1"
-    else:
-        dice = "1d20"
+    dice = [
+        "1d20", 
+        "2d20kh1",
+        "3d20kh1",
+        "2d20kl1",
+    ]
 
-    atk_roll1 = vroll(f"{dice} + {atk_mod}")
-    atk_roll2 = vroll(f"{dice} + {atk_mod}")
+    dice1 = dice[adv1]
+    dice2 = dice[adv2]
+
+    atk_roll1 = vroll(f"{dice1} + {atk_mod}")
+    atk_roll2 = vroll(f"{dice2} + {atk_mod}")
 
     dex_mod = ch.saves.get("dex")
-
-    dex_save = vroll(dex_mod.d20(adv))
+    dex_save = vroll(dex_mod.d20(adv3))
 
     ############
     # XP rolls #
