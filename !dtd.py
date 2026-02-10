@@ -344,6 +344,11 @@ __**Results:**__
                 -footer "!dtd job [skill1] [skill2] | Athanor | !dtd help"
             '''
 
+
+###                                     ###
+###########################################
+###                                     ###
+
 def train_dtd():
     #################
     # Loading cvars #
@@ -478,6 +483,14 @@ def train_dtd():
     if total < 0:
         total = 0
 
+    ########################
+    # Coin Purse Deduction #
+    ########################
+
+    changes = ch.coinpurse.modify_coins(gp=int(-level))
+
+    COINPURSE_AFTER = ch.coinpurse.compact_str()
+
     ################
     # Final Result #
     ################
@@ -492,6 +505,8 @@ def train_dtd():
 **Dexterity Save**: {dex_save}
 
 __**Results:**__
+**Coinpurse Changes:**
+{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (-{level:.2f}gp)
 **XP gained**:
 {total}XP | run `!xp +{total} 'Combat Training'` in <#1043462883062861864>
 **Exhaustion Streak:**
