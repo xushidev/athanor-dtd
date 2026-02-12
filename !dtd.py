@@ -325,7 +325,7 @@ def contract_dtd():
     ################
 
     return f'''embed
-                -title "Job downtime"
+                -title "Downtime Activity: Job"
                 -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
 **Character**: {name} (Level {level} | Tier {TIER})
 
@@ -496,7 +496,7 @@ def train_dtd():
     ################
 
     return f'''embed
-                -title "Job downtime"
+                -title "Downtime Activity: Train"
                 -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
 **Character**: {name} (Level {level} | Tier {TIER})
 
