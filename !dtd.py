@@ -210,10 +210,10 @@ def contract_dtd():
     # Get possible advantage from the arguments
     a.set_context(1)
     bonus1 = a.get("b", 0)
-    adv1 = a.adv(eadv=True)
+    adv1 = a.adv(boolwise=True)
     a.set_context(2)
     bonus2 = a.get("b", 0)
-    adv2 = a.adv(eadv=True)
+    adv2 = a.adv(boolwise=True)
 
     # Get possible rerolls from arguments (halflings)
     reroll_number = ch.csettings.get("reroll", None)
@@ -246,14 +246,15 @@ def contract_dtd():
         bonuses = ""
         for bonus in bonus1:
             bonuses += "+" + bonus
-        SkillRoll1 = vroll(ch.skills[skill1].d20(adv1, reroll_number, minimum_check1) + bonuses)
+        SkillRoll1 = vroll(f"{ch.skills[skill1].d20(adv1, reroll_number, minimum_check1)} {bonuses}")
+    
     if bonus2 == 0:
+        SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2))
+    else:
         bonuses = ""
         for bonus in bonus2:
             bonuses += "+" + bonus
-        SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2))
-    else:
-        SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2) + bonuses)
+        SkillRoll2 = vroll(f"{ch.skills[skill2].d20(adv2, reroll_number, minimum_check2)} {bonuses}")
 
     # Fixes animal handling for display
     if skill2 == "animalHandling":
