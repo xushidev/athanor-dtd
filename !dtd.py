@@ -209,8 +209,10 @@ def contract_dtd():
 
     # Get possible advantage from the arguments
     a.set_context(1)
+    bonus1 = a.get("b", 0)
     adv1 = a.adv(eadv=True)
     a.set_context(2)
+    bonus2 = a.get("b", 0)
     adv2 = a.adv(eadv=True)
 
     # Get possible rerolls from arguments (halflings)
@@ -238,8 +240,20 @@ def contract_dtd():
     # Final Skill Rolls #
     #####################
 
-    SkillRoll1 = vroll(ch.skills[skill1].d20(adv1, reroll_number, minimum_check1))
-    SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2))
+    if bonus1 == 0:
+        SkillRoll1 = vroll(ch.skills[skill1].d20(adv1, reroll_number, minimum_check1))
+    else:
+        bonuses = ""
+        for bonus in bonus1:
+            bonuses += "+" + bonus
+        SkillRoll1 = vroll(ch.skills[skill1].d20(adv1, reroll_number, minimum_check1) + bonuses)
+    if bonus2 == 0:
+        bonuses = ""
+        for bonus in bonus2:
+            bonuses += "+" + bonus
+        SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2))
+    else:
+        SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2) + bonuses)
 
     # Fixes animal handling for display
     if skill2 == "animalHandling":
@@ -390,12 +404,15 @@ def train_dtd():
     ###################
     a = LIB.numargparse(&ARGS&)
 
-    # Get possible advantage from the arguments
+    # Get possible advantage and bonus from the arguments
     a.set_context(1)
+    bonus1 = a.get("b", 0)
     adv1 = a.adv(eadv=True)
     a.set_context(2)
+    bonus2 = a.get("b", 0)
     adv2 = a.adv(eadv=True)
     a.set_context(3)
+    bonus3 = a.get("b", 0)
     adv3 = a.adv(eadv=True)
     ########################
     # Exhaustion penalties #
@@ -432,12 +449,33 @@ def train_dtd():
 
     dice1 = dice[adv1]
     dice2 = dice[adv2]
+    dice3 = dice[adv3]
 
-    atk_roll1 = vroll(f"{dice1} + {atk_mod}")
-    atk_roll2 = vroll(f"{dice2} + {atk_mod}")
+    if bonus1 == 0:
+        atk_roll1 = vroll(f"{dice1} + {atk_mod}")
+    else:
+        bonuses = ""
+        for bonus in bonus1:
+            bonuses += "+" + bonus
+        atk_roll1 = vroll(f"{dice1} + {atk_mod} {bonuses}")
+    
+    if bonus2 == 0:
+        atk_roll2 = vroll(f"{dice2} + {atk_mod}")
+    else:
+        bonuses = ""
+        for bonus in bonus2:
+            bonuses += "+" + bonus
+        atk_roll2 = vroll(f"{dice2} + {atk_mod} {bonuses}")
 
     dex_mod = ch.saves.get("dex")
-    dex_save = vroll(dex_mod.d20(adv3))
+
+    if bonus3 == 0:
+        dex_save = vroll(f"{dice3} + {dexterityMod}")
+    else:
+        bonuses = ""
+        for bonus in bonus3:
+            bonuses += "+" + bonus
+        dex_save = vroll(f"{dice3} + {dexterityMod} {bonuses}")
 
     ############
     # XP rolls #
