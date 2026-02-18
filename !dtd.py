@@ -44,6 +44,12 @@ EXHAUSTION_PROMPTS = [
     "Your exhaustion is obvious to anyone who looks at you. You need time to recover."
 ]
 
+ADV_TABLE = {
+    1: True,
+    0: None,
+    -1: False
+}
+
 SKILL_LIST = []
 for (skill_name, skill) in ch.skills:
     SKILL_LIST.append(skill_name)
@@ -210,10 +216,10 @@ def contract_dtd():
     # Get possible advantage from the arguments
     a.set_context(1)
     bonus1 = a.get("b", 0)
-    adv1 = a.adv(boolwise=True)
+    adv1 = a.adv()
     a.set_context(2)
     bonus2 = a.get("b", 0)
-    adv2 = a.adv(boolwise=True)
+    adv2 = a.adv()
 
     # Get possible rerolls from arguments (halflings)
     reroll_number = ch.csettings.get("reroll", None)
@@ -228,11 +234,11 @@ def contract_dtd():
 
     exh_msg = ""
 
-    if exhaustion_streak > 4 and adv1 > 1:
+    if exhaustion_streak > 4 and adv1 > -1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
         adv1 -= 1
     
-    if exhaustion_streak > 4 and adv2 > 1:
+    if exhaustion_streak > 4 and adv2 > -1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
         adv2 -= 1
 
@@ -241,20 +247,20 @@ def contract_dtd():
     #####################
 
     if bonus1 == 0:
-        SkillRoll1 = vroll(ch.skills[skill1].d20(adv1, reroll_number, minimum_check1))
+        SkillRoll1 = vroll(ch.skills[skill1].d20(ADV_TABLE[adv1], reroll_number, minimum_check1))
     else:
         bonuses = ""
         for bonus in bonus1:
             bonuses += "+" + bonus
-        SkillRoll1 = vroll(f"{ch.skills[skill1].d20(adv1, reroll_number, minimum_check1)} {bonuses}")
+        SkillRoll1 = vroll(f"{ch.skills[skill1].d20(ADV_TABLE[adv1], reroll_number, minimum_check1)} {bonuses}")
     
     if bonus2 == 0:
-        SkillRoll2 = vroll(ch.skills[skill2].d20(adv2, reroll_number, minimum_check2))
+        SkillRoll2 = vroll(ch.skills[skill2].d20(ADV_TABLE[adv2], reroll_number, minimum_check2))
     else:
         bonuses = ""
         for bonus in bonus2:
             bonuses += "+" + bonus
-        SkillRoll2 = vroll(f"{ch.skills[skill2].d20(adv2, reroll_number, minimum_check2)} {bonuses}")
+        SkillRoll2 = vroll(f"{ch.skills[skill2].d20(ADV_TABLE[adv2], reroll_number, minimum_check2)} {bonuses}")
 
     # Fixes animal handling for display
     if skill2 == "animalHandling":
@@ -421,15 +427,15 @@ def train_dtd():
 
     exh_msg = ""
 
-    if exhaustion_streak > 4 and adv1 > 1:
+    if exhaustion_streak > 4 and adv1 > -1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
         adv1 -= 1
     
-    if exhaustion_streak > 4 and adv2 > 1:
+    if exhaustion_streak > 4 and adv2 > -1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
         adv2 -= 1
 
-    if exhaustion_streak > 4 and adv3 > 1:
+    if exhaustion_streak > 4 and adv3 > -1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]
         adv3 -= 1
     #########################
