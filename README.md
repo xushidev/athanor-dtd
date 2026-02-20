@@ -12,36 +12,16 @@ The `!job.py` file contains the script in draconic for the `!MONEY` command, it 
 
 ## TODO list
 
-- [x] Money DTD 
-- [ ] Projects DTD   
-- [ ] Miscellaneous DTD   
-- [x] XP DTD   
+- [x] Money DTD
+- [ ] Projects DTD
+- [ ] Miscellaneous DTD
+- [x] XP DTD
 - [x] Implementing time based limit (using `time()` functions)   
-- [x] Implementing exhaustion system   
-
-### TODO list:
-#### Money DTD:
-- [x] Skills rolls   
-- [x] Gold rolls (per tier)   
-- [x] Coinpurse changes   
-- [x] Exhaustion streak system   
-- [x] RP prompt   
-
-#### Projects DTD:
-- [ ] Project name + DC input implementation   
-- [ ] Skill input   
-- [ ] Skill rolls   
-- [x] Exhaustion streak system   
-
-#### Miscellaneous DTD:
-- [ ] Input (reason for searching, what is doing, etc...)  
-- [ ] Defining what skills to use (investigation, perception, survival, etc...)  
-- [ ] Assistant role ping  
-- [ ] Exhaustion streak system   
-
-#### XP DTD:
-- [x] Defining what skills / atk rolls etc... to use   
-- [x] Skill rolls  
-- [x] XP rolls per tier  
-- [x] XP log add  
-- [x] Exhaustion streak system  
+- [x] Implementing exhaustion system
+- [ ] Add tool checks for `!dtd job`
+- [ ] Add multiple job types:
+    - [ ] Healing DTD
+    - [ ] Eotorath DTD
+- [ ] DDB friendly alias
+- [ ] PTW/HRW 2.0
+- [ ] All DTD into 1 alias python script
