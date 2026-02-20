@@ -1,3 +1,22 @@
 {
-    "dtd": []
+    "dtd": [
+        {
+            "type": "args",
+            "path": "DTD-modules/exhaustion.py",
+            "args": [
+                "exhaustion_streak",
+                "adv1",
+                "*args",
+                "**kwargs"
+            ]
+        }, 
+        {
+            "type": "std",
+            "path": "DTD-modules/constant.py"
+        },
+        {
+            "type": "func",
+            "path": "DTD-modules/job.py"
+        }
+    ]
 }
