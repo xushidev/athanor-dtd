@@ -25,3 +25,11 @@ The `!job.py` file contains the script in draconic for the `!MONEY` command, it 
 - [ ] DDB friendly alias
 - [ ] PTW/HRW 2.0
 - [ ] All DTD into 1 alias python script
+
+### Python script concept
+
+The python script for the alias is supposed to do the following:
+- read `build-order.json`
+- figure out it's components and their build orders
+- get the functions (modules) from a folder
+- put them all into a few `*.alias` files under /dist folder 
