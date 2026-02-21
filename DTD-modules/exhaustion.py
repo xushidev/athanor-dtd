@@ -2,8 +2,6 @@ exhaustion_streak, *advantages = args
 exh_msg = ""
 exh_list = []
 
-print(advantages)
-
 for adv in advantages:
     if exhaustion_streak > 4 and adv > -1:
         exh_msg = EXHAUSTION_PROMPTS[roll("1d20")-1]

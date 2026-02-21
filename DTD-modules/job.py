@@ -8,7 +8,10 @@ athanor_dtd = cvar_loader()
 # Time checker #
 ################
 
-before_exhaustion_streak, exhaustion_streak, athanor_dtd = time_checker(athanor_dtd)
+try:
+    before_exhaustion_streak, exhaustion_streak, athanor_dtd = time_checker(athanor_dtd)
+except:
+    return 'echo You are doing 2 dtds in the same day, please try tomorrow'
 
 ###################
 # Arguments check #
