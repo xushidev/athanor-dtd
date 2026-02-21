@@ -1,17 +1,6 @@
 {
     "dtd": [
         {
-            "type": "args",
-            "path": "DTD-modules/exhaustion.py",
-            "args": [
-                "exhaustion_streak",
-                "adv1",
-                "*args",
-                "**kwargs"
-            ],
-            "func_name": "exhaustion_penalties"
-        }, 
-        {
             "type": "std",
             "path": "DTD-modules/constant.py"
         },
@@ -22,18 +11,21 @@
         },
         {
             "type": "args",
+            "path": "DTD-modules/exhaustion.py",
+            "args": [
+                "exhaustion_streak",
+                "adv1",
+                "*args",
+                "**kwargs"
+            ],
+            "func_name": "exhaustion_penalties"
+        },
+        {
+            "type": "args",
             "path": "DTD-modules/time-checker.py",
             "func_name": "time_checker",
             "args": [
                 "athanor_dtd"
-            ]
-        },
-        {
-            "type": "args",
-            "path": "DTD-modules/build.py",
-            "func_name": "build",
-            "args": [
-                "*args"
             ]
         },
         {
