@@ -1,6 +1,11 @@
 {
     "dtd": [
         {
+            "name": "libs",
+            "type": "std",
+            "path": "DTD-modules/libs.py"
+        },
+        {
             "name": "constant",
             "type": "std",
             "path": "DTD-modules/constant.py"
@@ -16,10 +21,7 @@
             "type": "args",
             "path": "DTD-modules/exhaustion.py",
             "args": [
-                "exhaustion_streak",
-                "adv1",
-                "*args",
-                "**kwargs"
+                "*args"
             ],
             "func_name": "exhaustion_penalties"
         },
@@ -43,6 +45,11 @@
             "type": "func",
             "path": "DTD-modules/train.py",
             "func_name": "train_dtd"
+        },
+        {
+            "name": "dtd-loader",
+            "type": "std",
+            "path": "DTD-modules/dtd.py"
         }
     ]
 }
