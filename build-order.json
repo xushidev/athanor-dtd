@@ -1,15 +1,18 @@
 {
     "dtd": [
         {
+            "name": "constant",
             "type": "std",
             "path": "DTD-modules/constant.py"
         },
         {
+            "name": "cvar",
             "type": "func",
             "path": "DTD-modules/cvar.py",
             "func_name": "cvar_loader"
         },
         {
+            "name": "exhaustion",
             "type": "args",
             "path": "DTD-modules/exhaustion.py",
             "args": [
@@ -21,6 +24,7 @@
             "func_name": "exhaustion_penalties"
         },
         {
+            "name": "time-checker",
             "type": "args",
             "path": "DTD-modules/time-checker.py",
             "func_name": "time_checker",
@@ -29,9 +33,16 @@
             ]
         },
         {
+            "name": "job_dtd",
             "type": "func",
             "path": "DTD-modules/job.py",
-            "func_name": "contract_job"
+            "func_name": "job_dtd"
+        },
+        {
+            "name": "train_dtd",
+            "type": "func",
+            "path": "DTD-modules/train.py",
+            "func_name": "train_dtd"
         }
     ]
 }
