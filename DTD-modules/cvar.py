@@ -8,3 +8,5 @@ default = dump_json(
 )
 
 athanor_dtd = load_json(ch.get_cvar("athanor_dtd", default))
+
+return athanor_dtd

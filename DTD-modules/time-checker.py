@@ -12,3 +12,5 @@ if last_dtd != "":
         athanor_dtd["exhaustion_streak"] += 1
 
 exhaustion_streak = athanor_dtd["exhaustion_streak"]
+
+return (before_exhaustion_streak, exhaustion_streak, athanor_dtd)
