@@ -47,6 +47,12 @@
             "func_name": "train_dtd"
         },
         {
+            "name": "eotorath_dtd",
+            "type": "func",
+            "path": "DTD-modules/eotorath.py",
+            "func_name": "eotorath_dtd"
+        },
+        {
             "name": "dtd-loader",
             "type": "std",
             "path": "DTD-modules/dtd.py"

@@ -121,3 +121,5 @@ EXHAUSTION_PROMPTS = [
     "Sleep comes easily, but waking up feels just as heavy. Today must be rest.",
     "Your exhaustion is obvious to anyone who looks at you. You need time to recover."
 ]
+
+TOOL_LIST = load_yaml(get_gvar('e65831da-1834-4089-9bbd-93fc36a2d622'))
