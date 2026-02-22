@@ -1,3 +1,25 @@
+############################
+# Loading Custom Constants #
+############################
+
+ALLOWED_TOOLS = [
+    "carpenterstools",
+    "masonstools",
+    "glassblowerstools",
+    "weaverstools",
+    "cooksutensils",
+    "herbalismkit"
+]
+
+ALLOWED_SKILLS = [
+    "persuasion",
+    "medicine",
+    "animalHandling",
+    "nature",
+    "arcana",
+    "athletics"
+]
+
 #################
 # Loading cvars #
 #################
@@ -33,27 +55,7 @@ if def_skill1 != "" and def_skill2 != "":
     args1 = def_skill1
     args2 = def_skill2
 
-#######################################
-# Declaring Allowed Skill/Tools Lists #
-#######################################
 
-allowed_tools = [
-    "carpenterstools",
-    "masonstools",
-    "glassblowerstools",
-    "weaverstools",
-    "cooksutensils",
-    "herbalismkit"
-]
-
-allowed_skills = [
-    "persuasion",
-    "medicine",
-    "animalHandling",
-    "nature",
-    "arcana",
-    "athletics"
-]
 
 ################
 # input checks #
@@ -71,15 +73,15 @@ except:
 if skill1 == 'default':
     return 'echo Error: skill given is not a skill'
 
-if skill1 not in allowed_skills:
+if skill1 not in ALLOWED_SKILLS:
     return f'''echo Error: skill given is not an accepted skill
             skill given: {skill2}
-            valid skills: {', '.join(allowed_skills)}'''
+            valid skills: {', '.join(ALLOWED_SKILLS)}'''
 
-if skill2 not in allowed_tools:
+if skill2 not in ALLOWED_TOOLS:
     return f'''echo Error: tool given is not an accepted tool
             tool given: {skill2}
-            valid tools: {', '.join(allowed_tools)}'''
+            valid tools: {', '.join(ALLOWED_TOOLS)}'''
 
 ch.set_cvar("athanor_dtd", dump_json(athanor_dtd))
 

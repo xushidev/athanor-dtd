@@ -24,9 +24,6 @@ DC_INDEX = [
     8+level+proficiencyBonus
 ]
 
-VALID_SKILLS1 = ["acrobatics", "athletics", "stealth"]
-VALID_SKILLS2 = ["animalHandling", "deception", "intimidation", "investigation", "nature", "perception"]
-
 COINPURSE_BEFORE = ch.coinpurse.compact_str()
 
 GOLD_INDEX = [
