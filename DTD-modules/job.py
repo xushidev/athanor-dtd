@@ -2,10 +2,8 @@
 # Loading Custom Constants #
 ############################
 
-
 VALID_SKILLS1 = ["acrobatics", "athletics", "stealth"]
 VALID_SKILLS2 = ["animalHandling", "deception", "intimidation", "investigation", "nature", "perception"]
-
 
 #################
 # Loading cvars #

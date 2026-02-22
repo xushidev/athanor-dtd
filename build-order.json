@@ -53,6 +53,12 @@
             "func_name": "eotorath_dtd"
         },
         {
+            "name": "med_dtd",
+            "type": "func",
+            "path": "DTD-modules/med.py",
+            "func_name": "med_dtd"
+        },
+        {
             "name": "dtd-loader",
             "type": "std",
             "path": "DTD-modules/dtd.py"

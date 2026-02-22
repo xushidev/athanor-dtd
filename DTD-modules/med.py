@@ -1,3 +1,87 @@
+############################
+# Loading Custom Constants #
+############################
+
+VALID_SKILLS1 = ["medicine", "nature", "investigation", "survival", "animalHandling"]
+VALID_SKILLS2 = ["sleightOfHand", "insight", "history", "persuasion", "perception"]
+
+RP_PROMPTS = {
+    "failure": [
+        "...You realised too late that you forgot to wash your hands before applying the bandages, now you have to wash it and do it again, properly this time.",
+        "Despite the patient's wishes, you continued the procedure, as painful as it sounds and looks.",
+        "You underestimated your strength and tightened the bandage too much.",
+        "You were too fast and did everything before anyone realised it happened, the patient magically healed and you were never acknowledged for your works.",
+        "The tools betray you at the worst possible moment.",
+        "The lack of money leaves you with little pay, as you had to do beneficiary work.",
+        "Your effort are null as they didn't seem to work despite following the right procedures.",
+        "The job technically worked, but not in the way anyone would consider a success.",
+        "Someone else speaks first and takes credit, leaving you to explain what went wrong.",
+        "You finish just a little too late, and that small delay makes all the difference.",
+        "In trying to help, you reveal something you would have preferred to keep private.",
+        "You complete the task, but the effort leaves you worse than when you started.",
+        "Your idea makes sense on paper, yet falls apart the moment you apply it pratically.",
+        "A small distraction breaks your concentration, and the mistake follows immediately.",
+        "You do what was asked, only to be told you should have known better.",
+        "You are fined slightly for a work done wrongly, you are lucky no life has been taken.",
+        "You thought everything was going alright, but a professional comes and points out your mistakes.",
+        "Where is your cap to prevent sweat from falling down?",
+        "You talked... And talked... And talked... And the old lady left without doing anything, feeling better, but of course you didn't get paid for talking",
+        "You inspire someone and pull them out from a dark mentality. But nobody acknowledges your effort.",
+        "You run swiftly from a patient to another... And bump into someone.",
+        "You bump into someone running too fast in the opposite direction."
+    ],
+    "success": [
+        "You follow the correct steps, and this time they work as intended.",
+        "The patient endures, and the procedure concludes without further complication.",
+        "You keep a steady hand, and nothing slips out of place, fortunately.",
+        "The tools cooperate, and that alone makes the difference.",
+        "You finish without attracting attention, which is sometimes the best outcome.",
+        "The employer pays you what was agreed, nothing more, nothing less.",
+        "No one complains, and that is taken as approval.",
+        "You correct a small mistake before it becomes visible on the patient.",
+        "You leave the situation stable, if not improved.",
+        "Your timing is precise enough to avoid further trouble.",
+        "You feel the work was done properly, even if unnoticed.",
+        "The result holds... at least for now.",
+        "You are allowed to leave without questions.",
+        "The process hurts, but it heals.",
+        "You did what you were meant to do.",
+        "The wounds is closed perfectly, nothing more and nothing less.",
+        "A depressed person leaves you a tip as your speech with them leaves them much more willing to push on with life.",
+        "You distract a patient enough for the medic to carry on a painful procedure.",
+        "...You are left to write down all the informations about patients and which medicine to use in which condition."
+    ],
+    "critical": [
+        "You anticipate the complication before it happens and adjust accordingly.",
+        "The procedure succeeds so cleanly that no correction is needed.",
+        "You fix an issue no one realised was there.",
+        "The employer offers more work, trusting your steady hands, which means a bigger pay.",
+        "Word spreads quietly about how well it went.",
+        "Your method proves more efficient than expected.",
+        "You turn a delicate situation into a controlled one.",
+        "Someone important in the guild notices the precision of your work.",
+        "The result lasts longer than anyone predicted.",
+        "You gain the trust that is rarely given twice.",
+        "The outcome prevents future problems before they arise.",
+        "You make it look easier than it was.",
+        "Your name is mentioned with respect and gratitude by the patient's family afterward.",
+        "You leave behind something that will not need fixing for a while.",
+        "You will be trusted with something more difficult next time.",
+        "The recovery is faster than it should have been.",
+        "Others ask how you managed to do it.",
+        "You will be remembered for doing it right.",
+        "The success feels earned.",
+        "You feel warm in your chest watching the smile of your patient.",
+        "The patient seems magically healed and you take the credit for it despite never doing anything",
+        "The job becomes proof of your competence.",
+        "Someone won't miss their family, you broke a circle of death by incompetence.",
+        "A kind smile inspires you to keep up with the good work.",
+        "A kid's laughter fills your ears with joy and happiness.",
+        "\'I want to see the sky one more time... I want to feel the rays of the sun one more time...\' . . . \'Thank you. Kind person. You did the right thing.\'",
+        "A burning sense of duty fills, as you watch over the tent filled with despair. You feel the need to fill it with HOPE"
+    ]
+}
+
 #################
 # Loading cvars #
 #################
@@ -105,8 +189,13 @@ else:
     SkillRoll2 = vroll(f"{ch.skills[skill2].d20(ADV_TABLE[adv2], reroll_number, minimum_check2)} {bonuses}")
 
 # Fixes animal handling for display
-if skill2 == "animalHandling":
-    skill2 = "Animal Handling"
+if skill1 == "animalHandling":
+    skill1 = "Animal Handling"
+else:
+    skill1 = skill1.capitalize()
+
+if skill2 == "sleightOfHand":
+    skill2 = "Sleight of Hand"
 else:
     skill2 = skill2.capitalize()
 
@@ -177,18 +266,18 @@ rp_msg = ""
 final_check = (SkillRoll1.total + SkillRoll2.total) // 2
 
 if final_check < DC_INDEX[0]:
-    rp_msg = RP_PROMPTS["failure"][roll("1d15")-1]
+    rp_msg = RP_PROMPTS["failure"][roll("1d22")-1]
 elif final_check < DC_INDEX[1]:
-    rp_msg = RP_PROMPTS["success"][roll("1d15")-1]
+    rp_msg = RP_PROMPTS["success"][roll("1d19")-1]
 else:
-    rp_msg = RP_PROMPTS["critical"][roll("1d20")-1]
+    rp_msg = RP_PROMPTS["critical"][roll("1d27")-1]
 
 ################
 # Final Result #
 ################
 
 return f'''embed
-            -title "Downtime Activity: Job"
+            -title "Downtime Activity: Medic"
             -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
 **Character**: {name} (Level {level} | Tier {TIER})
 
@@ -204,5 +293,5 @@ __**Results:**__
 **Optional Roleplay Prompt:**
 {rp_msg}"""
             -thumb "{ch.image}"
-            -footer "!dtd job [skill1] [skill2] | Athanor | !dtd help"
+            -footer "!dtd med [skill1] [skill2] | Athanor | !dtd help"
         '''

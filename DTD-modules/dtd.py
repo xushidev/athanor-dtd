@@ -6,6 +6,8 @@ elif a_type == "train":
     return train_dtd()
 elif a_type == "eoth":
     return eotorath_dtd()
+elif a_type == "med":
+    return med_dtd()
 else:
     return f'''embed
         -title "Athanor DownTime Days (DTD) Activities"
