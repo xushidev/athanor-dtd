@@ -36,9 +36,17 @@ no_args2 = '&' + '3' + '&'
 if (args1 == no_args1 or args2 == no_args2) and (def_skill1 == "" or def_skill2 == ""):
     return 'echo Error: No input given'
 
-if def_skill1 != "" and def_skill2 != "":
-    args1 = def_skill1
-    args2 = def_skill2
+if args1 == no_args1:
+    if def_skill1 != "":
+        args1 = def_skill1
+    else:
+        return 'echo Error: No input given'
+
+if args2 == no_args2:
+    if def_skill2 != "":
+        args2 = def_skill2
+    else:
+        return 'echo Error: No input given'
 
 ######################
 # Skill input checks #
