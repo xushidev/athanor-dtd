@@ -137,6 +137,35 @@ if skill1 == "animalHandling":
 else:
     skill1 = skill1.capitalize()
 
+############
+# Evaluate #
+############
+
+city = combat()
+
+if city is None:
+    return "echo Error: wrong channel"
+
+eoth = a.last("choice")
+
+if eoth is None:
+    return "echo: Error: no eotorath section given"
+
+section = city.get_metadata(eoth, None)
+
+if section is None:
+    return "echo Error: invalid choice"
+
+# Section schema:
+# {
+#   "section": "section_name",
+#   "dc": "max_dc"
+#   "current": "value"
+# }
+#
+
+
+
 ################
 # Final Result #
 ################
