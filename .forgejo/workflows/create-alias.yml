@@ -3,21 +3,30 @@ name: Build & Release Alias
 on:
   push:
     tags:
-      - "v*" # trigger when you push a tag like v1.0.0
+      - "v*"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: docker
     container:
-      image: ghcr.io/catthehacker/ubuntu:act-22.04
-
+      image: alpine:latest
     steps:
+      - name: Install dependencies
+        run: |
+          apk add --no-cache \
+            nodejs \
+            npm \
+            git \
+            python3 \
+            py3-pip \
+            py3-setuptools
+
       - uses: actions/checkout@v4
 
       - name: Run build script
         run: |
-          python build.py
+          python3 build.py
 
       - name: Verify output
         run: ls -R dist
@@ -28,3 +37,4 @@ jobs:
           direction: upload
           token: ${{ secrets.WRITE_TOKEN }}
           release-dir: dist
+          title: ${{ github.ref_name }}
