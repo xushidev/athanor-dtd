@@ -4,7 +4,6 @@ on:
   push:
     tags:
       - "v*"
-  workflow_dispatch:
 
 jobs:
   build:
@@ -37,4 +36,4 @@ jobs:
           direction: upload
           token: ${{ secrets.WRITE_TOKEN }}
           release-dir: dist
-          title: ${{ github.ref_name }}
+          title: "Release: ${{ github.ref_name }}"
