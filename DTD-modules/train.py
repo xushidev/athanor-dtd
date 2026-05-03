@@ -139,21 +139,7 @@ COINPURSE_AFTER = ch.coinpurse.compact_str()
 
 return f'''embed
             -title "Downtime Activity: Train"
-            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-**Character**: {name} (Level {level} | Tier {TIER})
-
-**First Attack Roll:** {atk_roll1}
-**Second Attack Roll:** {atk_roll2}
-**Dexterity Save**: {dex_save}
-
-__**Results:**__
-**Coinpurse Changes:**
-{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (-{level:.2f}gp)
-**XP gained**:
-{total}XP | run `!xp +{total} 'Combat Training'` in <#1043462883062861864>
-**Exhaustion Streak:**
-{before_exhaustion_streak} -> {exhaustion_streak}
-{exh_msg}"""
+            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`\n**Character**: {name} (Level {level} | Tier {TIER})\n\n**First Attack Roll:** {atk_roll1}\n**Second Attack Roll:** {atk_roll2}\n**Dexterity Save**: {dex_save}\n\n__**Results:**__\n**Coinpurse Changes:**\n{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (-{level:.2f}gp)\n**XP gained**:\n{total}XP | run `!xp +{total} 'Combat Training'` in <#1043462883062861864>\n**Exhaustion Streak:**\n{before_exhaustion_streak} -> {exhaustion_streak}\n{exh_msg}"""
             -thumb "{ch.image}"
             -footer "!dtd train | Athanor | !dtd help"
         '''

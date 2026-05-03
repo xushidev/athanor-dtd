@@ -204,20 +204,7 @@ else:
 
 return f'''embed
             -title "Downtime Activity: Job"
-            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-**Character**: {name} (Level {level} | Tier {TIER})
-
-**{skill1.capitalize()}:** {SkillRoll1}
-**{skill2}:** {SkillRoll2}
-
-__**Results:**__
-**Coinpurse Changes:**
-{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (+{total_gold:.2f}gp)
-**Exhaustion Streak:**
-{before_exhaustion_streak} -> {exhaustion_streak}
-{exh_msg}
-**Optional Roleplay Prompt:**
-{rp_msg}"""
+            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`\n**Character**: {name} (Level {level} | Tier {TIER})\n\n**{skill1.capitalize()}:** {SkillRoll1}\n**{skill2}:** {SkillRoll2}\n\n__**Results:**__\n**Coinpurse Changes:**\n{COINPURSE_BEFORE} -> {COINPURSE_AFTER} (+{total_gold:.2f}gp)\n**Exhaustion Streak:**\n{before_exhaustion_streak} -> {exhaustion_streak}\n{exh_msg}\n**Optional Roleplay Prompt:**\n{rp_msg}"""
             -thumb "{ch.image}"
             -footer "!dtd job [skill1] [skill2] | Athanor | !dtd help"
         '''
