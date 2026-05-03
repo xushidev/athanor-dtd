@@ -12,7 +12,11 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache \
-            git
+            git \
+            nodejs \
+            npm \
+            python3 \
+            py3-pip
 
       - name: Setup NodeJs
         uses: actions/setup-node@v3
