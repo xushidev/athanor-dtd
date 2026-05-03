@@ -9,13 +9,13 @@ jobs:
     container:
       image: ubuntu:22.04
     steps:
-      - name: Clone the repository
-        uses: actions/checkout@v4
-
       - name: Install dependencies
         run: |
           apt-get update
           apt-get install -y python3 python3-pip nodejs npm
+
+      - name: Clone the repository
+        uses: actions/checkout@v4
 
       - name: Run build script
         run: |
