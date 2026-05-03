@@ -12,25 +12,26 @@ jobs:
       - name: Install dependencies
         run: |
           apk add --no-cache \
-            git \
             nodejs \
             npm \
+            git \
             python3 \
-            py3-pip
+            py3-pip \
+            py3-setuptools
 
-      - name: Check out repository
-        uses: https://code.forgejo.org/actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Run build script
         run: |
-          python build.py
+          python3 build.py
 
       - name: Verify output
         run: ls -R dist
 
-      - name: Create Artifact
-        uses: https://data.forgejo.org/forgejo/upload-artifact@v4
+      - name: Create Release
+        uses: https://code.forgejo.org/actions/forgejo-release@v2.11.3
         with:
-          #direction: upload
-          #token: ${{ secrets.WRITE_TOKEN }}
-          path: dist/
+          direction: upload
+          token: ${{ secrets.WRITE_TOKEN }}
+          release-dir: dist
+          title: "Nightly release"
