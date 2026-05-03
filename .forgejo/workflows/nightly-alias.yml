@@ -7,19 +7,29 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: ubuntu:22.04
+      image: alpine:latest
     steps:
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install -y python3 python3-pip nodejs npm
+          apk add --no-cache \
+            git
 
-      - name: Clone the repository
-        uses: actions/checkout@v4
+      - name: Setup NodeJs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24'
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Check out repository
+        uses: https://code.forgejo.org/actions/checkout@v6
 
       - name: Run build script
         run: |
-          python3 build.py
+          python build.py
 
       - name: Verify output
         run: ls -R dist
