@@ -7,11 +7,15 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: alpine:latest
+      image: ubuntu:22.04
     steps:
+      - name: Update ubuntu repositories
+        run: |
+          apt update
+
       - name: Install dependencies
         run: |
-          apk add --no-cache \
+          apt install \
             nodejs \
             npm \
             git \
