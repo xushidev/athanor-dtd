@@ -7,23 +7,19 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: node:20-alpine
+      image: node:20
     steps:
       - name: Install dependencies
         run: |
-          apk add --no-cache \
+          apt install -y \
             git \
-            python3 \
-            py3-pip \
-            py3-setuptools \
-            bash
+            python3
       
       - name: check versions
         run: |
           node -v
           npm -v
           python3 --version
-          pip3 --version
 
       - uses: actions/checkout@v4
 
