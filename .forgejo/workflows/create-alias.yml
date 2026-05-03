@@ -9,18 +9,20 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: alpine:latest
+      image: node:20
     steps:
       - name: Install dependencies
         run: |
-          apk add --no-cache \
-            nodejs \
-            npm \
+          apt update
+          apt install -y \
             git \
-            python3 \
-            py3-pip \
-            py3-setuptools \
-            bash
+            python3
+      
+      - name: check versions
+        run: |
+          node -v
+          npm -v
+          python3 --version
 
       - uses: actions/checkout@v4
 
@@ -32,9 +34,10 @@ jobs:
         run: ls -R dist
 
       - name: Create Release
-        uses: actions/forgejo-release@v2.11.1
+        uses: https://code.forgejo.org/actions/forgejo-release@v2.11.3
         with:
           direction: upload
           token: ${{ secrets.WRITE_TOKEN }}
           release-dir: dist
-          title: "Release: ${{ github.ref_name }}"
+          tag: nightly-${{ github.run_number }}
+          title: "Nightly build #${{ github.run_number }}"
