@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
+          apt update
           apt install -y \
             git \
             python3
@@ -36,4 +37,5 @@ jobs:
           direction: upload
           token: ${{ secrets.WRITE_TOKEN }}
           release-dir: dist
-          title: "Nightly release"
+          tag: nightly-${{ github.run_number }}
+          title: "Nightly build #${{ github.run_number }}"
