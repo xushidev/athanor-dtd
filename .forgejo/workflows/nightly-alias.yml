@@ -7,17 +7,22 @@ jobs:
   build:
     runs-on: docker
     container:
-      image: alpine:latest
+      image: node:24-alpine
     steps:
       - name: Install dependencies
         run: |
           apk add --no-cache \
-            nodejs \
-            npm \
             git \
             python3 \
             py3-pip \
             py3-setuptools
+      
+      - name: check versions
+        run: |
+          node -v
+          npm -v
+          python3 --version
+          pip3 --version
 
       - uses: actions/checkout@v4
 
@@ -29,7 +34,7 @@ jobs:
         run: ls -R dist
 
       - name: Create Release
-        uses: https://code.forgejo.org/actions/forgejo-release@v2.11.0
+        uses: https://code.forgejo.org/actions/forgejo-release@v2.11.3
         with:
           direction: upload
           token: ${{ secrets.WRITE_TOKEN }}
