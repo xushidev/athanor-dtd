@@ -29,9 +29,8 @@ jobs:
         run: ls -R dist
 
       - name: Create Release
-        uses: actions/forgejo-release@v2.11.1
+        uses: actions/upload-artifact@v7
         with:
-          direction: upload
-          token: ${{ secrets.WRITE_TOKEN }}
-          release-dir: dist
-          title: "Nightly release"
+          #direction: upload
+          #token: ${{ secrets.WRITE_TOKEN }}
+          path: dist/
