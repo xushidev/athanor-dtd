@@ -14,7 +14,7 @@ skills_list = [skill_name for (skill_name, skill) in ch.skills if skill_name not
 tools_list = load_yaml(get_gvar('e65831da-1834-4089-9bbd-93fc36a2d622'))
 
 # Gets the tier of the character
-tier = int(ch.levels.total_level//4.01+1)
+tier = (&ARGS&.get("level", int(ch.levels.total_level//4.01+1))
 
 # Gets the current time in Japan (+9 hours)
 MINUTE = 60
@@ -569,6 +569,9 @@ __**Results:**__
 	            -footer "!dtd med [skill1] [skill2] | Athanor | !dtd help"
 	        '''
 
+def eotorath_dtd():
+    # TODO
+
 def train_dtd():
     # Variable to store the arguments given
     local_args = athanor_dtd.copy()
@@ -681,7 +684,7 @@ def train_dtd():
     return f'''embed
 	            -title "Downtime Activity: Train"
 	            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-**Character**: {name} (Level {(&ARGS&.get("level", level)} | Tier {TIER})
+**Character**: {name} (Level {(&ARGS&.get("level", level)} | Tier {tier})
 
 **First Attack Roll:** {atk_roll1}
 **Second Attack Roll:** {atk_roll2}
