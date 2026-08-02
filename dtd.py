@@ -128,9 +128,9 @@ def get_random_job_rp(final_check):
         ]
     }
     # Returns a roleplay prompt depending on the level of success
-    if final_check < (8+(level//2)+proficiencyBonus):
+    if final_check < (8+((&ARGS&.get("level", level)//2)+proficiencyBonus):
 	    return RP_PROMPTS["failure"][roll("1d15")-1]
-	elif final_check < (8+level+proficiencyBonus):
+	elif final_check < (8+(&ARGS&.get("level", level)+proficiencyBonus):
 	    return RP_PROMPTS["success"][roll("1d15")-1]
 	else:
 	    return RP_PROMPTS["critical"][roll("1d20")-1]
@@ -214,9 +214,9 @@ def get_random_med_rp(final_check):
 	    ]
 	}
 	# Returns a roleplay prompt depending on the level of success
-	if final_check < (8+(level//2)+proficiencyBonus):
+	if final_check < (8+((&ARGS&.get("level", level)//2)+proficiencyBonus):
 	    return RP_PROMPTS["failure"][roll("1d22")-1]
-	elif final_check < (8+level+proficiencyBonus):
+	elif final_check < (8+(&ARGS&.get("level", level)+proficiencyBonus):
 	    return RP_PROMPTS["success"][roll("1d19")-1]
 	else:
 	    return RP_PROMPTS["critical"][roll("1d27")-1]
@@ -266,10 +266,10 @@ def roll_gold():
     )
 
 def calculate_gold(skill_roll):
-    if skill_roll.total < (8+(level//2)+proficiencyBonus):
+    if skill_roll.total < (8+(&ARGS&.get("level", level)//2)+proficiencyBonus):
         # failure
         return roll_gold() - roll_gold()
-    elif skill_roll.total < (8+level+proficiencyBonus):
+    elif skill_roll.total < (8+(&ARGS&.get("level", level)+proficiencyBonus):
         # success
         return roll_gold()
     else:
@@ -278,11 +278,11 @@ def calculate_gold(skill_roll):
 
 def calculate_xp(result_roll):
     die = (
-            4 if result_roll.total < (8+(level//2)+proficiencyBonus)
-            else 6 if result_roll.total < (8+level+proficiencyBonus)
+            4 if result_roll.total < (8+((&ARGS&.get("level", level)//2)+proficiencyBonus)
+            else 6 if result_roll.total < (8+(&ARGS&.get("level", level)+proficiencyBonus)
             else 8
         )
-    return roll(f"{level}d{die}")
+    return roll(f"{(&ARGS&.get("level", level)}d{die}")
 
 # Downtime Activities available
 def job_dtd():
@@ -410,7 +410,7 @@ def job_dtd():
     return f'''embed
 	            -title "Downtime Activity: Job"
 	            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-**Character**: {name} (Level {level} | Tier {TIER})
+**Character**: {name} (Level {(&ARGS&.get("level", level)} | Tier {TIER})
 
 **{args1.capitalize()}:** {skill_roll1}
 **{args2.capitalize() if args2 != "animalHandling" else "Animal Handling"}:** {skill_roll2}
@@ -552,7 +552,7 @@ def med_dtd():
     return f'''embed
 	            -title "Downtime Activity: Medic"
 	            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-**Character**: {name} (Level {level} | Tier {TIER})
+**Character**: {name} (Level {(&ARGS&.get("level", level)} | Tier {TIER})
 
 **{args1.capitalize()}:** {skill_roll1}
 **{args2.capitalize() if args2 != "animalHandling" else "Animal Handling"}:** {skill_roll2}
@@ -672,7 +672,7 @@ def train_dtd():
     xp_roll3 = calculate_xp(dex_save.total)
 
     # Modify the coin purse and get the delta
-    changes = ch.coinpurse.modify_coins(gp=int(-level))
+    changes = ch.coinpurse.modify_coins(gp=int(-(&ARGS&.get("level", level)))
 
     # Get the coinpurse after alias completion
     post_coins = ch.coinpurse.compact_str()
@@ -681,7 +681,7 @@ def train_dtd():
     return f'''embed
 	            -title "Downtime Activity: Train"
 	            -desc """**Player**: <@{ctx.author.id}> `{ctx.author.name}`
-**Character**: {name} (Level {level} | Tier {TIER})
+**Character**: {name} (Level {(&ARGS&.get("level", level)} | Tier {TIER})
 
 **First Attack Roll:** {atk_roll1}
 **Second Attack Roll:** {atk_roll2}
@@ -689,7 +689,7 @@ def train_dtd():
 
 __**Results:**__
 **Coinpurse Changes:**
-{pre_coins} -> {post_coins} (-{level:.2f}gp)
+{pre_coins} -> {post_coins} (-{(&ARGS&.get("level", level):.2f}gp)
 **XP gained**:
 {xp_roll1 + xp_roll2 + xp_roll3}XP | run `!xp +{xp_roll1 + xp_roll2 + xp_roll3} 'Combat Training'` in <#1043462883062861864>
 **Exhaustion Streak:**
