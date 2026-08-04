@@ -90,6 +90,7 @@ def modify_dc():
     if (args1, args2) == (no_args1, no_args2):
         return "echo Error: no input given"
 
+    # Check if the input is a number or not.
     try:
         args2 = int(args2)
     except:
@@ -101,11 +102,22 @@ def modify_dc():
     if choice is None:
         return "echo Error: section does not seem to exist"
 
+    # Get the section from fuzzy search
     section = load_json(combat_channel.get_metadata(choice))
+
+    # We remember the previous DC for logging purpose
     pre_dc = section["dc"]
+
+    # Change the DC to the new one
     section["dc"] = args2
+
+    # Get the new DC
     post_dc = section["dc"]
+
+    # Write the new data in the metadata
     combat_channel.set_metadata(choice, dump_json(section))
+
+    # Return success
     return f"echo Successfully modified {choice} section DC from {pre_dc} to {post_dc}"
 
 
