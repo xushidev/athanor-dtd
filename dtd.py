@@ -891,10 +891,12 @@ if athanor_dtd["last_dtd"] != "":
 dtd = '&1&'.lower()
 if dtd == "job":
     return job_dtd()
-elif a_type == "med":
+elif dtd == "med":
     return med_dtd()
 elif dtd == "train":
     return train_dtd()
+elif dtd == "eoth":
+    return eotorath_dtd()
 else:
     return '''embed
         -title "Athanor DownTime Days (DTD) Activities"
