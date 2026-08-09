@@ -313,6 +313,9 @@ def job_dtd():
     # Log this as the last DTD done after having checked for exhaustion
     local_args["last_dtd"] = TIME
 
+    # Parse arguments with context
+    args = arguments.numargparse(&ARGS&)
+
     # Check if any inputs are given,
     # if we already have them, we use that
     # else it is error
@@ -329,9 +332,6 @@ def job_dtd():
             return "echo Error: No input given"
     else:
         # If we have skills given by user
-        # Parse arguments with context
-        args = arguments.numargparse(&ARGS&)
-
         # Gets the bonuses / advantages for 1st skill
         args.set_context(1)
         bonus1, adv1 = args.get("b", 0), args.adv()
@@ -343,7 +343,6 @@ def job_dtd():
 
         # Stores them as tuple for easy deconstruction
         local_args["job_args"] = []
-        local_args["job_args"].extend([(args1, args2), ((bonus1, adv1), (bonus2, adv2))])
 
         # Check if they are valid or not before writing
         # Search the exact skills in the arguments
@@ -357,6 +356,9 @@ def job_dtd():
         # Checks if the argument is in the valid skills
         if (args1 not in valid_skills["job"][0]) or (args2 not in valid_skills["job"][1]):
             return "echo Error: Invalid skill input"
+
+        # If all the inputs are valid, add the new default arguments
+        local_args["job_args"].extend([(args1, args2), ((bonus1, adv1), (bonus2, adv2))])
 
         # Write new variables in cvar
         ch.set_cvar("athanor_dtd", dump_json(local_args))
@@ -413,7 +415,7 @@ def job_dtd():
     parsed_gold = parse_coins(f"{gold_roll1 + gold_roll2}", include_total=False)
 
     # Modify the coin purse and get the delta
-    changes = ch.coinpurse.modify_coins(**parsed_coins)
+    changes = ch.coinpurse.modify_coins(**parsed_gold)
 
     # Get the coinpurse after alias completion
     post_coins = ch.coinpurse.compact_str()
@@ -457,6 +459,9 @@ def med_dtd():
     # Log this as the last DTD done after having checked for exhaustion
     local_args["last_dtd"] = TIME
 
+    # Parse arguments with context
+    args = arguments.numargparse(&ARGS&)
+
     # Check if any inputs are given,
     # if we already have them, we use that
     # else it is error
@@ -473,9 +478,6 @@ def med_dtd():
             return "echo Error: No input given"
     else:
         # If we have skills given by user
-        # Parse arguments with context
-        args = arguments.numargparse(&ARGS&)
-
         # Gets the bonuses / advantages for 1st skill
         args.set_context(1)
         bonus1, adv1 = args.get("b", 0), args.adv()
@@ -487,7 +489,6 @@ def med_dtd():
 
         # Stores them as tuple for easy deconstruction
         local_args["med_args"] = []
-        local_args["med_args"].extend([(args1, args2), ((bonus1, adv1), (bonus2, adv2))])
 
         # Check if they are valid or not before writing
         # Search the exact skills in the arguments
@@ -501,6 +502,9 @@ def med_dtd():
         # Checks if the argument is in the valid skills
         if (args1 not in valid_skills["med"][0]) or (args2 not in valid_skills["med"][1]):
             return "echo Error: Invalid skill input"
+
+        # If it passes all the checks above, add them to the default arguments
+        local_args["med_args"].extend([(args1, args2), ((bonus1, adv1), (bonus2, adv2))])
 
         # Write new variables in cvar
         ch.set_cvar("athanor_dtd", dump_json(local_args))
@@ -557,7 +561,7 @@ def med_dtd():
     parsed_gold = parse_coins(f"{gold_roll1 + gold_roll2}", include_total=False)
 
     # Modify the coin purse and get the delta
-    changes = ch.coinpurse.modify_coins(**parsed_coins)
+    changes = ch.coinpurse.modify_coins(**parsed_gold)
 
     # Get the coinpurse after alias completion
     post_coins = ch.coinpurse.compact_str()
@@ -602,6 +606,9 @@ def eotorath_dtd():
     # Log this as the last DTD done after having checked for exhaustion
     local_args["last_dtd"] = TIME
 
+    # Parse arguments with context
+    args = arguments.numargparse(&ARGS&)
+
     # Check if any inputs are given,
     # if we already have them, we use that
     # else it is error
@@ -618,9 +625,6 @@ def eotorath_dtd():
             return "echo Error: No input given"
     else:
         # If we have skills given by user
-        # Parse arguments with context
-        args = arguments.numargparse(&ARGS&)
-
         # Gets the bonuses / advantages for 1st skill
         args.set_context(1)
         bonus1, adv1 = args.get("b", 0), args.adv()
@@ -632,7 +636,6 @@ def eotorath_dtd():
 
         # Stores them as tuple for easy deconstruction
         local_args["eoth_args"] = []
-        local_args["eoth_args"].extend([(args1, args2), ((bonus1, adv1), (bonus2, adv2))])
 
         # Check if they are valid or not before writing
         # Search the exact skills in the arguments
@@ -646,6 +649,9 @@ def eotorath_dtd():
         # Checks if the argument is in the valid skills
         if (args1 not in valid_skills["eoth"][0]) or (args2 not in valid_skills["eoth"][1]):
             return "echo Error: Invalid input"
+
+        # If all the checks above pass, then add it to the defaults
+        local_args["eoth_args"].extend([(args1, args2), ((bonus1, adv1), (bonus2, adv2))])
 
         # Write new variables in cvar
         ch.set_cvar("athanor_dtd", dump_json(local_args))
@@ -882,6 +888,29 @@ __**Results:**__
             -thumb "{ch.image}"
             -footer "!dtd train | Athanor | !dtd help"
         '''
+
+# Check if it is using the old cvar or not, if it is, we update to the new schema
+if athanor_dtd.get("default_skill1") != None:
+    leg_last_dtd = athanor_dtd["last_dtd"]
+    leg_exhaustion_streak = athanor_dtd["exhaustion_streak"]
+
+    # Transfer old data
+    new_schema = dump_json(
+        {
+            "last_dtd": leg_last_dtd,
+            "exhaustion_streak": leg_exhaustion_streak,
+            "med_args": [],
+            "job_args": [],
+            "train_args": [],
+            "eoth_args": []
+        }
+    )
+
+    # Write update to cvar
+    ch.set_cvar("athanor_dtd", new_schema)
+
+    # Update
+    athanor_dtd = load_json(ch.get_cvar("athanor_dtd", better_default))
 
 # Check the time, returns error directly if trying to do DTDs before reset.
 if athanor_dtd["last_dtd"] != "":
