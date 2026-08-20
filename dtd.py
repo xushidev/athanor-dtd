@@ -612,7 +612,7 @@ def eotorath_dtd():
     # Check if any inputs are given,
     # if we already have them, we use that
     # else it is error
-    if (args1, args2) == (no_args1, no_args2):
+    if (args1, args2) == (no_args1, no_args2) or args1 == "-choice":
         # If no skills are given, then we check the defaults
         if len(athanor_dtd["eoth_args"]) != 0:
             # If there are defaults, we use defaults (assume they are valid)
