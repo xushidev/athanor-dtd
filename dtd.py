@@ -612,7 +612,7 @@ def eotorath_dtd():
     # Check if any inputs are given,
     # if we already have them, we use that
     # else it is error
-    if (args1, args2) == (no_args1, no_args2):
+    if (args1, args2) == (no_args1, no_args2) or args1 == "-choice":
         # If no skills are given, then we check the defaults
         if len(athanor_dtd["eoth_args"]) != 0:
             # If there are defaults, we use defaults (assume they are valid)
@@ -705,38 +705,33 @@ def eotorath_dtd():
 
     # Get the section choice and fuzzy find it
     choice = args.last("choice", None)
-    choice = ([x for x in load_json(combat_channel.get_metadata("sections")) if choice.lower().replace(' ', '') in x.lower()])[0]
+    choice = ([x.name for x in combat_channel.combatants if choice.lower().replace(' ', '') in x.name.lower()]+["default"])[0]
 
-    # "sections": ["sect_1", "sect_2"]
-    # If the section choosen isn't real, then it is an error
-    if choice is None:
+    # If the section choosen doesn't exist, then it is an error
+    if choice == "default":
         return "echo Error: section not found"
 
-    # Get the metadata for the choice
-    # "sect_1": {"dc": 100, "progress": 50}
-    section = load_json(combat_channel.get_metadata(choice))
+    # Get the combatant of choice
+    section = combat_channel.get_combatant(choice)
+
+    # Check if the section is already complete
+    if section.hp == section.max_hp:
+        return "echo Error: section already complete"
 
     # Get the progression before
-    pre_section = section["progress"]
+    pre_section = section.hp
 
-    # Adds the progress
-    section["progress"] += ((skill_roll1.total + skill_roll2.total) // 2)
+    # Add and set the progress
+    section.modify_hp(((skill_roll1.total + skill_roll2.total) // 2), overflow=False)
 
     complete_msg = ""
 
-    if section["progress"] >= section["dc"]:
-        # Completes the section and delete it
-        combat_channel.delete_metadata(choice)
-        sections = load_json(combat_channel.get_metadata("sections"))
-        sections.remove(choice)
-        combat_channel.set_metadata("sections", dump_json(sections))
+    if section.hp >= section.max_hp:
+        # Completes the section and gives a message
         complete_msg = f"{choice} section is complete! Ping <@383474917556879370> to notify"
-    else:
-        # Set the new progress
-        combat_channel.set_metadata(choice, dump_json(section))
 
     # Get the progression after
-    post_section = section["progress"]
+    post_section = section.hp
 
     # Return embed result
     return f'''embed
@@ -749,7 +744,7 @@ def eotorath_dtd():
 
 __**Results:**__
 **Repair Progress:**
-{pre_section}/{section["dc"]} -> {post_section}/{section["dc"]} (+{(skill_roll1.total + skill_roll2.total) // 2}) {complete_msg}
+{pre_section}/{section.max_hp} -> {post_section}/{section.max_hp} (+{(skill_roll1.total + skill_roll2.total) // 2}) {complete_msg}
 **Exhaustion Streak:**
 {pre_exhaustion} -> {post_exhaustion}{get_random_exhaustion_rp()}"""
             -thumb "{ch.image}"
