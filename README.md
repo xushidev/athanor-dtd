@@ -16,12 +16,12 @@ Same for the `eotorath.py` file used to control the eotorath downtime activity.
 - [x] XP DTD
 - [x] Implementing time based limit (using `time()` functions)   
 - [x] Implementing exhaustion system
-- [ ] Add tool checks for `!dtd job`
-- [ ] Add multiple job types:
+- [ ] ~~Add tool checks for `!dtd job`~~
+- [x] Add multiple job types:
     - [x] Healing DTD
-    - [ ] Eotorath DTD
+    - [x] Eotorath DTD
         - [x] The actual DTD
-        - [ ] Adding progress bar
-- [ ] DDB friendly alias
+        - [ ] ~~Adding progress bar~~
+- [x] DDB friendly alias
 - [ ] PTW/HRW 2.0
-- [ ] All DTD into 1 alias python script
+- [ ] ~~All DTD into 1 alias python script~~
