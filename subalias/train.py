@@ -241,9 +241,9 @@ def train_dtd():
             bonuses += "+" + bonus
         dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity').value} {bonuses}")
 
-    xp_roll1 = calculate_xp(atk_roll1.total)
-    xp_roll2 = calculate_xp(atk_roll2.total)
-    xp_roll3 = calculate_xp(dex_save.total)
+    xp_roll1 = calculate_xp(atk_roll1.total) * tier
+    xp_roll2 = calculate_xp(atk_roll2.total) * tier
+    xp_roll3 = calculate_xp(dex_save.total)  * tier
 
     # Modify the coin purse and get the delta
     changes = ch.coinpurse.modify_coins(gp=int(-(global_args.get("level", level))))
