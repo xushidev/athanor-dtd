@@ -133,8 +133,8 @@ def calculate_gold(skill_roll):
 
 def calculate_xp(result_roll):
     die = (
-            4 if result_roll.total < (8+(global_args.get("level", level)//2)+proficiencyBonus)
-            else 6 if result_roll.total < (8+(global_args.get("level", level))+proficiencyBonus)
+            4 if result_roll < (8+(global_args.get("level", level)//2)+proficiencyBonus)
+            else 6 if result_roll < (8+(global_args.get("level", level))+proficiencyBonus)
             else 8
         )
     return roll(f"{global_args.get('level', level)}d{die}")
@@ -234,12 +234,12 @@ def train_dtd():
         atk_roll2 = vroll(f"{roll2} + {atk_mod} {bonuses}")
 
     if bonus3 == 0:
-        dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity')}")
+        dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity').value}")
     else:
         bonuses = ""
         for bonus in bonus3:
             bonuses += "+" + bonus
-        dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity')} {bonuses}")
+        dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity').value} {bonuses}")
 
     xp_roll1 = calculate_xp(atk_roll1.total)
     xp_roll2 = calculate_xp(atk_roll2.total)
