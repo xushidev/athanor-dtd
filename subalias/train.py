@@ -234,12 +234,12 @@ def train_dtd():
         atk_roll2 = vroll(f"{roll2} + {atk_mod} {bonuses}")
 
     if bonus3 == 0:
-        dex_save = vroll(f"{roll3} + {ch.saves.get('dex')}")
+        dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity')}")
     else:
         bonuses = ""
         for bonus in bonus3:
             bonuses += "+" + bonus
-        dex_save = vroll(f"{roll3} + {ch.saves.get('dex')} {bonuses}")
+        dex_save = vroll(f"{roll3} + {ch.saves.get('dexterity')} {bonuses}")
 
     xp_roll1 = calculate_xp(atk_roll1.total)
     xp_roll2 = calculate_xp(atk_roll2.total)
